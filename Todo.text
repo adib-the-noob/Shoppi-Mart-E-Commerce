@@ -1,0 +1,32 @@
+1. Product
+[name,picture,description,price,review,	slug,rating]
+
+
+# Review
+[user,email,name,picture]
+
+
+2. Prooduct Review
+[authenticated,kinte Hbe,Email,Desc]
+
+
+3. Cart
+[product,quantity,total price,Delivery Fee,relivery]
+
+
+4. Order
+[address,payment Type]
+
+
+5. User Profile
+[email,phone,first_last_name,address]
+
+
+6. Rating 
+[product,avg_rating]
+
+
+7. Collection
+[all products,product]
+
+8. Address
