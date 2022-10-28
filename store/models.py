@@ -3,6 +3,8 @@ from PIL import Image
 from django.core.files import File
 from django.db import models
 
+
+
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -62,5 +64,4 @@ class Product(models.Model):
         img.save(thumb_to, 'JPEG', quality=85)
 
         thumbnail = File(thumb_to, name=image.name)
-        thumbnail.save()
         return thumbnail
