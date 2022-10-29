@@ -28,3 +28,4 @@ class CategorySerializer(serializers.ModelSerializer):
             'slug',
             'products',
         ]
+
