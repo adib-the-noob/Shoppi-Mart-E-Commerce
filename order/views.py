@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from .models import Cart, CartItem
+
 from rest_framework.viewsets import (
     ModelViewSet,
     GenericViewSet,
@@ -11,8 +12,7 @@ from rest_framework.mixins import (
     DestroyModelMixin,
 )
 
-from .models import Cart
-from .serializers import CartSerializer
+from .serializers import CartSerializer,CartItemSerializer
 # Create your views here.
 
 class CartViewSet(  GenericViewSet,
@@ -24,3 +24,9 @@ class CartViewSet(  GenericViewSet,
                     ):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+class CartItemViewSet(ModelViewSet):
+    serializer_class = CartItemSerializer
+    def get_queryset(self):
+        return CartItem.objects.filter(cart_id=self.kwargs['cart_pk'])

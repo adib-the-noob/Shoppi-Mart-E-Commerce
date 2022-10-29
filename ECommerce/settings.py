@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'store',
     'order',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
