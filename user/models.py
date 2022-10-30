@@ -78,8 +78,6 @@ class MyUser(AbstractBaseUser):
 
 class Address(models.Model):
     user = models.ForeignKey(MyUser,on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     place = models.CharField(max_length=100)
     zipcode = models.CharField(max_length=100)

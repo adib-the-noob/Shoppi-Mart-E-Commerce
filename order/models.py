@@ -13,22 +13,11 @@ from user.models import Address
 from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
-class Order(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    address = models.ForeignKey(Address,on_delete=models.PROTECT)
-    total_amount = models.DecimalField(max_digits=8,decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        ordering = ['-created_at']
-
-    def __str__(self):
-        return self.first_name
 
 class Cart(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4)
     created_at = models.DateTimeField(auto_now_add=True)
-
 
 class CartItem(models.Model):
     cart = models.ForeignKey(
@@ -40,3 +29,17 @@ class CartItem(models.Model):
 
     class Meta:
         unique_together = [['cart', 'product']]
+
+
+class Order(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    address = models.ForeignKey(Address,on_delete=models.PROTECT)
+    total_amount = models.DecimalField(max_digits=8,decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.first_name
