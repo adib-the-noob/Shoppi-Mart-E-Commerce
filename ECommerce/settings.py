@@ -75,7 +75,8 @@ TEMPLATES = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "*"
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
 ]
 
 CORS_ALLOW_METHODS = [
@@ -95,7 +96,7 @@ CORS_ALLOW_HEADERS = [
     "dnt",
     "origin",
     "user-agent",
-    "x-csrftoken",
+    "x-csrftoken",  
     "x-requested-with",
 ]
 
@@ -174,7 +175,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = "/media/"
 
 REST_FRAMEWORK = {
-       'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
+    #    'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework.renderers.JSONRenderer',
+    # )
 }

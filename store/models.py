@@ -47,7 +47,7 @@ class Product(models.Model):
 
     def get_thumbnail(self):
         if self.thumbnail:
-            return 'https://ecommerc-web.herokuapp.com/' + self.thumbnail.url
+            return 'https://ecommerc-web.herokuapp.com' + self.thumbnail.url
         else:
             if self.image:
                 self.thumbnail = self.make_thumbnail(self.image)
