@@ -134,12 +134,12 @@ import os
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 
 
 STATICFILES_DIRS = (
 
-    ('assets', os.path.join(BASE_DIR, 'static')),
+    ('assets', os.path.join(BASE_DIR, 'staticfiles')),
 )
 
 
