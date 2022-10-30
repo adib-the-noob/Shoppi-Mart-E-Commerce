@@ -9,6 +9,9 @@ pillow = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 drf-nested-routers = "*"
+s3transfer = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
