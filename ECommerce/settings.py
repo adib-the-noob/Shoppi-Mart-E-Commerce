@@ -137,10 +137,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/staticfiles/'
 
 
-STATICFILES_DIRS = (
+# STATICFILES_DIRS = (
 
-    ('assets', os.path.join(BASE_DIR, 'staticfiles')),
-)
+#     ('assets', os.path.join(BASE_DIR, 'staticfiles')),
+# )
 
 
 # Default primary key field type
@@ -153,3 +153,8 @@ import os
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = "/media/"
 
+REST_FRAMEWORK = {
+       'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
