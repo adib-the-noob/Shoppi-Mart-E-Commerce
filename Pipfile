@@ -12,6 +12,7 @@ drf-nested-routers = "*"
 s3transfer = "*"
 whitenoise = "*"
 gunicorn = "*"
+opencv-python = "*"
 
 [dev-packages]
 

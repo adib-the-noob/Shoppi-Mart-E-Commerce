@@ -20,7 +20,7 @@ class ProductViewSet(ListAPIView,):
 
 
 class ProductDetails(APIView):
-    def get(self, request, slug):
-        product = Product.objects.get(slug=slug)
+    def get(self, request, title):
+        product = Product.objects.get(title=title)
         serializer = ProductSerializer(product)
         return Response(serializer.data)

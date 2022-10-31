@@ -1,6 +1,5 @@
-from io import BytesIO
+from email.policy import default
 from PIL import Image
-from django.core.files import File
 from django.db import models
 
 
@@ -20,12 +19,10 @@ class Category(models.Model):
         return f'/{self.slug}/'
     
 
-
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
-    title = models.CharField(max_length=120)
+    title = models.CharField(max_length=120,unique=True)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
-    slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10000)
     date_added = models.DateTimeField(auto_now_add=True)
@@ -35,13 +32,12 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+    
 
     def get_absolute(self):
         return f'/{self.category.slug}/{self.slug}/'
 
     def save(self):
-        super().save()  # saving image first
-
         img = Image.open(self.image.path) # Open image using self
 
         if img.height > 300 or img.width > 300:

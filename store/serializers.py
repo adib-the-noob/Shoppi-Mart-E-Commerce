@@ -4,6 +4,11 @@ from rest_framework import serializers
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
+    alt = serializers.SerializerMethodField()
+    def get_alt(self,product : Product):
+        return product.title
+
     class Meta:
         model = Product
         fields = [
@@ -12,6 +17,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'description',
             'price',
             'image',
+            'alt',
         ]
 
 
