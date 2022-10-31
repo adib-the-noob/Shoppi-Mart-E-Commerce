@@ -3,8 +3,6 @@ from rest_framework import serializers
 
 
 
-    
-
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -14,7 +12,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'description',
             'price',
             'image',
-            'get_image',
         ]
 
 

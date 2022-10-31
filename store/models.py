@@ -25,7 +25,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
-
     slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10000)
@@ -40,28 +39,12 @@ class Product(models.Model):
     def get_absolute(self):
         return f'/{self.category.slug}/{self.slug}/'
 
-    def get_image(self):
-        if self.image:
-            return 'https://ecommerc-web.herokuapp.com/' + self.image.url
-        return ''
+    def save(self):
+        super().save()  # saving image first
 
-    def get_thumbnail(self):
-        if self.thumbnail:
-            return 'https://ecommerc-web.herokuapp.com' + self.thumbnail.url
-        else:
-            if self.image:
-                self.thumbnail = self.make_thumbnail(self.image)
-                self.save()
-            else:
-                return ''
-    
-    def make_thumbnail(self, image, size=(300, 200)):
-        img = Image.open(image)
-        img.convert('RGB')
-        img.thumbnail(size)
+        img = Image.open(self.image.path) # Open image using self
 
-        thumb_to = BytesIO()
-        img.save(thumb_to, 'JPEG', quality=85)
-
-        thumbnail = File(thumb_to, name=image.name)
-        return thumbnail
+        if img.height > 300 or img.width > 300:
+            new_img = (300, 300)
+            img.thumbnail(new_img)
+            img.save(self.image.path)  # saving image at the same path
