@@ -1,7 +1,5 @@
-from email.policy import default
 from PIL import Image
 from django.db import models
-
 
 
 # Create your models here.
@@ -37,10 +35,10 @@ class Product(models.Model):
     def get_absolute(self):
         return f'/{self.category.slug}/{self.slug}/'
 
-    def save(self):
-        img = Image.open(self.image.path) # Open image using self
+    # def save(self):
+    #     img = Image.open(self.image.path) # Open image using self
 
-        if img.height > 300 or img.width > 300:
-            new_img = (300, 300)
-            img.thumbnail(new_img)
-            img.save(self.image.path)  # saving image at the same path
+    #     if img.height > 300 or img.width > 300:
+    #         new_img = (300, 300)
+    #         img.thumbnail(new_img)
+    #         img.save(self.image.path)  # saving image at the same path
