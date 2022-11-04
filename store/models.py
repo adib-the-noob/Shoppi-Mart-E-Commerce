@@ -18,11 +18,11 @@ class Category(models.Model):
     
 
 class Product(models.Model):
-    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE,null=True, blank=True)
     title = models.CharField(max_length=120,unique=True)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
-    description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(decimal_places=2, max_digits=10000)
+    description = models.TextField(blank=True, null=True, default='No description was provided')
+    price = models.DecimalField(decimal_places=2, max_digits=6)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:

@@ -12,7 +12,7 @@ drf-nested-routers = "*"
 s3transfer = "*"
 whitenoise = "*"
 gunicorn = "*"
-mysqlclient==2.1.1
+mysqlclient = "*"
 
 [dev-packages]
 
