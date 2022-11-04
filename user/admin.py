@@ -16,14 +16,14 @@ class UserModelAdmin(BaseUserAdmin):
     list_filter = ('is_admin',)
     fieldsets = (
         ("UserCredentials", {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('name','phone','address')}),
+        ('Personal info', {'fields': ('name','phone')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {
-            'classes': ('wide',),
+            'classes': ('',),
             'fields': ('email', 'name', 'password1', 'password2'),
         }),
     )
@@ -34,4 +34,14 @@ class UserModelAdmin(BaseUserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserModelAdmin)
-admin.site.register(Address)
+
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ('user','address','place','zipcode','phone')
+    list_filter = ('user',)
+    search_fields = ('user','address','place','zipcode','phone')
+    ordering = ('user','id')
+    filter_horizontal = ()
+
+
+
+admin.site.register(Address,AddressAdmin)

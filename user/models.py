@@ -87,4 +87,4 @@ class Address(models.Model):
         ordering = ['-id']
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name
+        return self.address
