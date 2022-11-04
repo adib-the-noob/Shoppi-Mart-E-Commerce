@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Address, MyUser as User
+from django.db.models import Q
 
 
 
@@ -34,3 +35,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'name', 'phone', 'address']
+
+class UserLoginSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=255)
+    class Meta:
+        model = User
+        fields = ('email','password')
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        password = attrs.get('password')
+        user = User.objects.filter(email=email  ).first()
+        if user is None:
+            raise serializers.ValidationError({'email': 'User does not exist.'})
+        if not user.check_password(password):
+            raise serializers.ValidationError({'password': 'Incorrect password.'})
+        return attrs
