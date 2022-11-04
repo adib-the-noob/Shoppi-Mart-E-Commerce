@@ -17,7 +17,8 @@ class CategoryViewSet(ListAPIView):
 class ProductViewSet(ListAPIView):
     queryset = Product.objects.all()
     filter_backends = [SearchFilter, OrderingFilter]   
-    search_fields = ['title', 'description',]
+    ordering_fields = ['title', 'price']
+    search_fields = ['^title', '=title','^description','=description']
     serializer_class = ProductSerializer
 
 
