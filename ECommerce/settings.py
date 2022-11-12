@@ -185,4 +185,3 @@ REST_FRAMEWORK = {
     'SEARCH_PARAM': 'q',
 }
 
-CSRF_TRUSTED_ORIGINS = ["*"]
