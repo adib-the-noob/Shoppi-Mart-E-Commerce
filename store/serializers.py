@@ -25,10 +25,9 @@ class ProductSerializer(serializers.ModelSerializer):
             'image',
             'alt',
         ]
+
     def create(self, validated_data):
         category = validated_data.pop('category')
         category = Category.objects.get_or_create(**category)[0]            
         return Product.objects.create(category=category, **validated_data)
-
-
 
