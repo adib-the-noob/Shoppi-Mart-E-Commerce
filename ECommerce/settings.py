@@ -107,14 +107,21 @@ WSGI_APPLICATION = 'ECommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'railway',
+#         'USER': 'root',
+#         'PASSWORD': 'pAYS9Rv825J4zU2QJs8h',
+#         'HOST': 'containers-us-west-95.railway.app',   # Or an IP Address that your DB is hosted on
+#         'PORT': '7038',        
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'railway',
-        'USER': 'root',
-        'PASSWORD': 'pAYS9Rv825J4zU2QJs8h',
-        'HOST': 'containers-us-west-95.railway.app',   # Or an IP Address that your DB is hosted on
-        'PORT': '7038',        
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

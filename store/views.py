@@ -9,12 +9,12 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 
-class CategoryViewSet(ListAPIView):
+class CategoryViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class ProductViewSet(ListAPIView):
+class ProductViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView):
     queryset = Product.objects.all()
     filter_backends = [SearchFilter, OrderingFilter]   
     ordering_fields = ['title', 'price']
