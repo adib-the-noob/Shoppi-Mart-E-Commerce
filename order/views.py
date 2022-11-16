@@ -1,5 +1,5 @@
 from .models import Cart, CartItem
-
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import (
     ModelViewSet,
     GenericViewSet,
@@ -22,11 +22,13 @@ class CartViewSet(GenericViewSet,
                 UpdateModelMixin,
                 DestroyModelMixin
                     ):
+    permission_classes = [IsAuthenticated]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
 
 class CartItemViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     http_method_names = ['get', 'post','patch', 'delete']
     def get_serializer_class(self):
         if self.request.method == 'POST':

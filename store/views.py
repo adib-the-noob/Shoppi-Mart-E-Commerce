@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+
 # Create your views here.
 
 
@@ -23,7 +24,7 @@ class ProductViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,Des
 
 
 class ProductDetails(APIView):
-    def get(self, request, title):
-        product = Product.objects.filter(title__icontains=title)
+    def get(self, request, id):
+        product = Product.objects.get(id=id)    
         serializer = ProductSerializer(product)
         return Response(serializer.data)

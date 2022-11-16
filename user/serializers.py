@@ -31,10 +31,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         
         
 class UserProfileSerializer(serializers.ModelSerializer):
-    address = UserAddressSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
-        fields = ['email', 'name', 'phone', 'address']
+        fields = ['name', 'phone']
 
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)

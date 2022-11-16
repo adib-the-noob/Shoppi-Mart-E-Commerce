@@ -191,5 +191,8 @@ REST_FRAMEWORK = {
     #     'rest_framework.renderers.JSONRenderer',
     # )
     'SEARCH_PARAM': 'q',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
