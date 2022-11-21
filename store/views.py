@@ -1,10 +1,13 @@
 from .models import Category, Product,Review
 from .serializers import CategorySerializer,ProductSerializer,ReviewSerializer
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet,GenericViewSet
 from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 
 
@@ -12,6 +15,13 @@ from rest_framework.permissions import IsAuthenticated
 class CategoryViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class CategorizedProducts(APIView):
+    def get(self,request,category):
+        products = Product.objects.filter(category__name=category)
+        serializer = ProductSerializer(products,many=True)
+        return Response(serializer.data)
 
 
 class ProductViewSet(ModelViewSet):
@@ -53,6 +63,4 @@ class ReviewViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'product_id': self.kwargs['product_pk']}
-    
-
     

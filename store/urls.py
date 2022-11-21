@@ -13,6 +13,7 @@ product_router.register('reviews', views.ReviewViewSet, basename='product-review
 
 urlpatterns = [
     path('categories/', views.CategoryViewSet.as_view()),
+    path('categories/<str:category>/', views.CategorizedProducts.as_view()),
     # path('products/', views.ProductViewSet.as_view()),
     # path('product/<int:id>/', views.SingleProductView.as_view()),
 ]
