@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet,GenericViewSet
 
 # Create your views here.
 
@@ -23,8 +24,24 @@ class ProductViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,Des
     serializer_class = ProductSerializer
 
 
-class ProductDetails(APIView):
+class SingleProductView(APIView):
     def get(self, request, id):
-        product = Product.objects.get(id=id)    
+        product = Product.objects.get(id=id)
         serializer = ProductSerializer(product)
         return Response(serializer.data)
+    
+    def patch(self, request, id):
+        product = Product.objects.get(id=id)
+        serializer = ProductSerializer(product, data=request.data,partial=True)   
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+    def delete(self, request, id):
+        product = Product.objects.get(id=id)
+        product.delete()
+        return Response(status=204)
+    
+
+    

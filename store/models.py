@@ -1,6 +1,7 @@
-from PIL import Image
 from django.db import models
+from django.conf import settings
 
+User = settings.AUTH_USER_MODEL
 
 # Create your models here.
 class Category(models.Model):
@@ -27,15 +28,15 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.review
+
     
-
-    def get_absolute(self):
-        return f'/{self.category.slug}/{self.slug}/'
-
-    # def save(self):
-    #     img = Image.open(self.image.path) # Open image using self
-
-    #     if img.height > 300 or img.width > 300:
-    #         new_img = (300, 300)
-    #         img.thumbnail(new_img)
-    #         img.save(self.image.path)  # saving image at the same path
