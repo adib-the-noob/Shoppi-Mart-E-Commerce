@@ -1,12 +1,10 @@
 from .models import Category, Product,Review
 from .serializers import CategorySerializer,ProductSerializer,ReviewSerializer
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet,GenericViewSet
-
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
@@ -47,6 +45,7 @@ class ProductViewSet(ModelViewSet):
 
 
 class ReviewViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = ReviewSerializer
 
     def get_queryset(self):
