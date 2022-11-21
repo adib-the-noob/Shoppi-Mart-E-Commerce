@@ -31,10 +31,14 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         
         
 class UserProfileSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, user: User):
+        return user.name
 
     class Meta:
         model = User
-        fields = ['name', 'phone']
+        fields = ['name', 'phone','email']
 
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
@@ -45,7 +49,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         email = attrs.get('email')
         password = attrs.get('password')
-        user = User.objects.filter(email=email  ).first()
+        user = User.objects.filter(email=email).first()
         if user is None:
             raise serializers.ValidationError({'email': 'User does not exist.'})
         if not user.check_password(password):

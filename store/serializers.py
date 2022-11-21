@@ -1,5 +1,7 @@
-from .models import Category, Product
+from .models import Category, Product,Review
 from rest_framework import serializers
+from user.serializers import UserProfileSerializer
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +33,11 @@ class ProductSerializer(serializers.ModelSerializer):
         category = Category.objects.get_or_create(**category)[0]            
         return Product.objects.create(category=category, **validated_data)
 
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['user','product','review','date_added']
+
+    def create(self, validated_data):
+        product_id = self.context.get('product_id')
+        return Review.objects.create(product_id=product_id, **validated_data)       

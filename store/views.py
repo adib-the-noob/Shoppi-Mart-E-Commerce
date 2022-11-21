@@ -1,5 +1,5 @@
-from .models import Category, Product
-from .serializers import CategorySerializer,ProductSerializer
+from .models import Category, Product,Review
+from .serializers import CategorySerializer,ProductSerializer,ReviewSerializer
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -16,7 +16,7 @@ class CategoryViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,De
     serializer_class = CategorySerializer
 
 
-class ProductViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView):
+class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     filter_backends = [SearchFilter, OrderingFilter]   
     ordering_fields = ['title', 'price']
@@ -24,24 +24,36 @@ class ProductViewSet(ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,Des
     serializer_class = ProductSerializer
 
 
-class SingleProductView(APIView):
-    def get(self, request, id):
-        product = Product.objects.get(id=id)
-        serializer = ProductSerializer(product)
-        return Response(serializer.data)
+# class SingleProductView(APIView):
+#     def get(self, request, id):
+#         product = Product.objects.get(id=id)
+#         serializer = ProductSerializer(product)
+#         return Response(serializer.data)
     
-    def patch(self, request, id):
-        product = Product.objects.get(id=id)
-        serializer = ProductSerializer(product, data=request.data,partial=True)   
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+#     def patch(self, request, id):
+#         product = Product.objects.get(id=id)
+#         serializer = ProductSerializer(product, data=request.data,partial=True)   
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors)
     
-    def delete(self, request, id):
-        product = Product.objects.get(id=id)
-        product.delete()
-        return Response(status=204)
+#     def delete(self, request, id):
+#         product = Product.objects.get(id=id)
+#         product.delete()
+#         return Response(status=204)
+
+# This is code is muted, for using Nested Router....
+
+
+class ReviewViewSet(ModelViewSet):
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        return Review.objects.filter(product_id=self.kwargs['product_pk'])
+
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}
     
 
     
